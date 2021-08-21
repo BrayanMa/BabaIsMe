@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="BOUKATCHAMBA_MARIÉ_BabaIsYou" default="all" basedir="../../Desktop/Baba">
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="15"/>
+    <property name="source" value="15"/>
+
+    <path id="Bouka_Marie_Baba.classpath">
+        <pathelement location="../../Desktop/Baba/classes"/>
+        <pathelement location="lib/zen5.jar"/>
+    </path>
+
+    <target name="compile">
+        <mkdir dir= "../../Desktop/Baba/classes" />
+        <copy includeemptydirs="false" todir="../../Desktop/Baba/classes">
+            <fileset dir="../../Desktop/Baba/src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+	<javac debug="true" debuglevel="${debuglevel}" destdir="../../Desktop/Baba/classes" includeantruntime="false">
+	  <src path="src"/>
+	  <classpath refid="Bouka_Marie_Baba.classpath"/>
+	  <compilerarg line="--enable-preview --release=${target}"/>
+	</javac>
+    </target>
+    <target name="jar">
+        <antcall target="compile"/>
+        <jar destfile="../../Desktop/Baba/baba.jar" basedir="../../Desktop/Baba/classes">
+            <zipfileset dir="../../Desktop/Baba/lib" includes="*.jar"/>
+            <manifest>
+                <attribute name="Class-Path" value="lib/zen5.jar"/>
+                <attribute name="Main-Class"
+                           value="fr.umlv.babaisyou.Main"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="javadoc">
+        <mkdir dir= "../../Desktop/Baba/docs/doc" />
+        <javadoc destdir="../../Desktop/Baba/docs/doc" access="public">
+            <classpath>
+                <fileset dir="../../Desktop/Baba/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+            <fileset dir="../../Desktop/Baba">
+                <include name="**/*.java"/>
+            </fileset>
+        </javadoc>
+    </target>
+    <target name="clean">
+        <delete dir="../../Desktop/Baba/classes"/>
+        <delete dir="../../Desktop/Baba/docs/doc"/>
+        <mkdir dir= "../../Desktop/Baba/classes" />
+    </target>
+    <target name="cleanall">
+        <delete file="../../Desktop/Baba/baba.jar"/>
+        <antcall target="clean"/>
+    </target>
+    <target name="all">
+        <antcall target="cleanall"/>
+        <antcall target="compile"/>
+        <antcall target="jar"/>
+        <antcall target="javadoc"/>
+    </target>
+</project>
+
+
+
