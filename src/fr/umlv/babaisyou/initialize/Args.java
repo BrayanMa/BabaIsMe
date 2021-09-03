@@ -41,7 +41,8 @@ public class Args {
                 for(int i = 0; i < args.length; i++){
                     y = verifCommandes(args, y, level, tab2, i);
                 }
-                if(level.length() == 12 || level.length() == 21) {
+                System.out.println(level.length());
+                if(level.length() == 39 || level.length() == 48) {
                     Board tab = null;
                     try {
                         tab = Files.init_word(String.valueOf(level));
@@ -97,7 +98,7 @@ public class Args {
     private static int verifCommandes(String[] args, int y, StringBuilder level, Board tab2, int i) {
         int x;
         switch (args[i]) {
-            case "--levels" -> level.append(args[i + 1]).append('/');
+            case "--levels" -> level.append("src/fr/umlv/babaisyou/externalFiles/").append(args[i + 1]).append('/');
             case "--level" -> level.append("lvl").append(args[i + 1]).append(".txt");
             case "--execute" -> {
                 x = 0;
@@ -106,6 +107,7 @@ public class Args {
                 verifExecProp(args, x, y, tab2, i);
             }
         }
+        System.out.println(level);
         return y;
     }
 
