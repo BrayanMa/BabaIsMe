@@ -111,16 +111,17 @@ public class Args {
     }
 
     private static int verifName(String[] args, int x, int y, Board tab2, int i) {
-        switch (args[i + 1]){
-            case ("BABA"): x = addTab2(x, y, tab2, NameEnum.Baba);break;
-            case ("FLAG"): x = addTab2(x, y, tab2, NameEnum.Flag);break;
-            case ("WALL"): x = addTab2(x, y, tab2, NameEnum.Wall);break;
-            case ("WATER"): x = addTab2(x, y, tab2, NameEnum.Water);break;
-            case ("SKULL"): x = addTab2(x, y, tab2, NameEnum.Skull);break;
-            case ("LAVA"): x = addTab2(x, y, tab2, NameEnum.Lava);break;
-            case ("ROCK"): x = addTab2(x, y, tab2, NameEnum.Rock);break;
-            case ("AROUF"): x = addTab2(x, y, tab2, NameEnum.Arouf);break;
-            default:break;
+        switch (args[i + 1]) {
+            case ("BABA") -> x = addTab2(x, y, tab2, NameEnum.Baba);
+            case ("FLAG") -> x = addTab2(x, y, tab2, NameEnum.Flag);
+            case ("WALL") -> x = addTab2(x, y, tab2, NameEnum.Wall);
+            case ("WATER") -> x = addTab2(x, y, tab2, NameEnum.Water);
+            case ("SKULL") -> x = addTab2(x, y, tab2, NameEnum.Skull);
+            case ("LAVA") -> x = addTab2(x, y, tab2, NameEnum.Lava);
+            case ("ROCK") -> x = addTab2(x, y, tab2, NameEnum.Rock);
+            case ("AROUF") -> x = addTab2(x, y, tab2, NameEnum.Arouf);
+            default -> {
+            }
         }
         return x;
     }
@@ -133,25 +134,26 @@ public class Args {
     }
 
     private static void verifExecProp(String[] args, int x, int y, Board tab2, int i) {
-        switch (args[i + 3]){
-            case ("YOU"): tab2.add(new Properties(PropEnum.You, x, y));break;
-            case ("WIN"): tab2.add(new Properties(PropEnum.Win, x, y));break;
-            case ("STOP"): tab2.add(new Properties(PropEnum.Stop, x, y));break;
-            case ("PUSH"): tab2.add(new Properties(PropEnum.Push, x, y));break;
-            case ("MELT"): tab2.add(new Properties(PropEnum.Melt, x, y));break;
-            case ("HOT"): tab2.add(new Properties(PropEnum.Hot, x, y));break;
-            case ("DEFEAT"): tab2.add(new Properties(PropEnum.Defeat, x, y));break;
-            case ("SINK"): tab2.add(new Properties(PropEnum.Sink, x, y));break;
-            case ("GANG"): tab2.add(new Properties(PropEnum.Gang, x, y));break;
-            case ("BABA"): tab2.add(new Name(NameEnum.Baba, x, y));break;
-            case ("FLAG"): tab2.add(new Name(NameEnum.Flag, x, y));break;
-            case ("WALL"): tab2.add(new Name(NameEnum.Wall, x, y));break;
-            case ("WATER"): tab2.add(new Name(NameEnum.Water, x, y));break;
-            case ("SKULL"): tab2.add(new Name(NameEnum.Skull, x, y));break;
-            case ("LAVA"): tab2.add(new Name(NameEnum.Lava, x, y));break;
-            case ("ROCK"): tab2.add(new Name(NameEnum.Rock, x, y));break;
-            case ("AROUF"): tab2.add(new Name(NameEnum.Arouf, x, y));break;
-            default:break;
+        switch (args[i + 3]) {
+            case ("YOU") -> tab2.add(new Properties(PropEnum.You, x, y));
+            case ("WIN") -> tab2.add(new Properties(PropEnum.Win, x, y));
+            case ("STOP") -> tab2.add(new Properties(PropEnum.Stop, x, y));
+            case ("PUSH") -> tab2.add(new Properties(PropEnum.Push, x, y));
+            case ("MELT") -> tab2.add(new Properties(PropEnum.Melt, x, y));
+            case ("HOT") -> tab2.add(new Properties(PropEnum.Hot, x, y));
+            case ("DEFEAT") -> tab2.add(new Properties(PropEnum.Defeat, x, y));
+            case ("SINK") -> tab2.add(new Properties(PropEnum.Sink, x, y));
+            case ("GANG") -> tab2.add(new Properties(PropEnum.Gang, x, y));
+            case ("BABA") -> tab2.add(new Name(NameEnum.Baba, x, y));
+            case ("FLAG") -> tab2.add(new Name(NameEnum.Flag, x, y));
+            case ("WALL") -> tab2.add(new Name(NameEnum.Wall, x, y));
+            case ("WATER") -> tab2.add(new Name(NameEnum.Water, x, y));
+            case ("SKULL") -> tab2.add(new Name(NameEnum.Skull, x, y));
+            case ("LAVA") -> tab2.add(new Name(NameEnum.Lava, x, y));
+            case ("ROCK") -> tab2.add(new Name(NameEnum.Rock, x, y));
+            case ("AROUF") -> tab2.add(new Name(NameEnum.Arouf, x, y));
+            default -> {
+            }
         }
     }
 }

@@ -35,5 +35,5 @@ public enum NameEnum {
     /**
      * Arouf
      */
-    Arouf;
+    Arouf
 }

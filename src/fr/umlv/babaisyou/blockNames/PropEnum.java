@@ -39,5 +39,5 @@ public enum PropEnum {
     /**
      * Gang
      */
-    Gang;
+    Gang
 }

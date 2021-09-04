@@ -86,7 +86,7 @@ public class Parser {
     }
 
     /**
-     * Function that determines if a game is lose or not
+     * Function that determines if a game is lost or not
      * @return boolean
      */
     public boolean defeat() {
