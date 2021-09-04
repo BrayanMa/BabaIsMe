@@ -41,7 +41,6 @@ public class Args {
                 for(int i = 0; i < args.length; i++){
                     y = verifCommandes(args, y, level, tab2, i);
                 }
-                System.out.println(level.length());
                 if(level.length() == 39 || level.length() == 48) {
                     Board tab = null;
                     try {
