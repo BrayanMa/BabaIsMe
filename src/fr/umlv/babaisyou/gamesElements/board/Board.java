@@ -127,18 +127,16 @@ public class Board {
             this.recupObj(list, name);
             if (prop.isName())
                 parse.addName(prop.getName(), list);
-            if (prop.isProperties()) {
+            if (prop.isProperties())
                 parse.add(prop.getProp(), list);
-            }
         }
         if (prop.gety() == op.gety() + 1 && prop.getx() == op.getx() && c == 'y') {
             if (!list.contains(name))
                 this.recupObj(list, name);
             if (prop.isName())
                 parse.addName(prop.getName(), list);
-            if (prop.isProperties()) {
+            if (prop.isProperties())
                 parse.add(prop.getProp(), list);
-            }
         }
     }
 

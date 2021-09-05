@@ -120,9 +120,7 @@ public class Engine {
         ScreenInfo screenInfo = context.getScreenInfo();
         int width = (int) screenInfo.getWidth();
         int height = (int) screenInfo.getHeight();
-        board.recupProp(parser, context, width, height);
-        board.displayBoard(context, width, height);
-        parser.displayName(context, board, width, height);
+        displayAndProp(board, parser, context, width, height);
         for (; ; ) {
             if (parser.defeat()) {
                 context.exit(0);
@@ -131,14 +129,25 @@ public class Engine {
             Event event = context.pollOrWaitEvent(10);
             if (event == null)
                 continue;
-            Action action = event.getAction();
-            action(board, parser, context, width, height, event, action, KeyboardKey.RIGHT, 0);
-            action(board, parser, context, width, height, event, action, KeyboardKey.DOWN, 1);
-            action(board, parser, context, width, height, event, action, KeyboardKey.LEFT, 2);
-            action(board, parser, context, width, height, event, action, KeyboardKey.UP, 3);
+            Action action = getAction(board, parser, context, width, height, event);
             if (endGame(parser, event, action) == 1) return true;
             else if (endGame(parser, event, action) == 2) return false;
         }
+    }
+
+    private static void displayAndProp(Board board, Parser parser, ApplicationContext context, int width, int height) {
+        board.recupProp(parser, context, width, height);
+        board.displayBoard(context, width, height);
+        parser.displayName(context, board, width, height);
+    }
+
+    private static Action getAction(Board board, Parser parser, ApplicationContext context, int width, int height, Event event) {
+        Action action = event.getAction();
+        action(board, parser, context, width, height, event, action, KeyboardKey.RIGHT, 0);
+        action(board, parser, context, width, height, event, action, KeyboardKey.DOWN, 1);
+        action(board, parser, context, width, height, event, action, KeyboardKey.LEFT, 2);
+        action(board, parser, context, width, height, event, action, KeyboardKey.UP, 3);
+        return action;
     }
 
     /**

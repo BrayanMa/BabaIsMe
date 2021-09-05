@@ -21,16 +21,19 @@ public class Graphic {
     public static Image loadName(Block block) {
         Objects.requireNonNull(block);
         StringBuilder string = new StringBuilder();
+        buildStringOfBlock(block, string);
+        if (block.isName())
+            string.append("Text_");
+        string.append(block.getName());
+        string.append(".gif");
+        return getImage(string);
+    }
+
+    private static void buildStringOfBlock(Block block, StringBuilder string) {
         if (block.isName())
             string.append("src/fr/umlv/babaisyou/externalFiles/IMG/Name/");
         if (block.isObj())
             string.append("src/fr/umlv/babaisyou/externalFiles/IMG/Obj/");
-        if (block.isName()) {
-            string.append("Text_");
-        }
-        string.append(block.getName());
-        string.append(".gif");
-        return getImage(string);
     }
 
     /**
@@ -40,10 +43,7 @@ public class Graphic {
         Objects.requireNonNull(block);
         Objects.requireNonNull(name);
         StringBuilder string = new StringBuilder();
-        if (block.isName())
-            string.append("src/fr/umlv/babaisyou/externalFiles/IMG/Name/");
-        if (block.isObj())
-            string.append("src/fr/umlv/babaisyou/externalFiles/IMG/Obj/");
+        buildStringOfBlock(block, string);
         if (block.isName()) {
             string.append("Text_");
             string.append(block.getName());

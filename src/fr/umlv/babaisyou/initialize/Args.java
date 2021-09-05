@@ -9,6 +9,7 @@ import fr.umlv.babaisyou.gamesElements.block.Operator;
 import fr.umlv.babaisyou.gamesElements.block.Properties;
 import fr.umlv.babaisyou.gamesElements.board.Board;
 import fr.umlv.zen5.Application;
+import fr.umlv.zen5.ApplicationContext;
 
 import java.awt.*;
 import java.io.IOException;
@@ -25,15 +26,7 @@ public class Args {
         var parser = new Parser();
         Application.run(Color.BLACK, context -> {
             if(args.length <= 0){
-                var level = "src/fr/umlv/babaisyou/externalFiles/LVL/default-lvl.txt";
-                Board tab = null;
-                try {
-                    tab = Files.init_word(level);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                assert tab != null;
-                Engine.gameEngine(tab, parser, context);
+                noArgsDetected(parser, context);
             } else{
                 int y = -1;
                 var level = new StringBuilder();
@@ -42,15 +35,7 @@ public class Args {
                     y = verifCommandes(args, y, level, tab2, i);
                 }
                 if(level.length() == 39 || level.length() == 48) {
-                    Board tab = null;
-                    try {
-                        tab = Files.init_word(String.valueOf(level));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    assert tab != null;
-                    fusionTab(tab, tab2);
-                    Engine.gameEngine(tab, parser, context);
+                    argsWithLevel(parser, context, level, tab2);
                 }else if(String.valueOf(level).equals("src/fr/umlv/babaisyou/externalFiles/LVL/")){
                     Board tab = null;
                     try {
@@ -61,26 +46,64 @@ public class Args {
                     assert tab != null;
                     fusionTab(tab, tab2);
                     Engine.gameEngine(tab, parser, context);
-                    for(int i = 1; i < 8; i++){
-                        try {
-                            tab = Files.init_word(level + "lvl" + i + ".txt");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        fusionTab(tab, tab2);
-                        if(!Engine.gameEngine(tab, parser, context))
-                            i--;
-                    }
+                    sequenceLevels(parser, context, level, tab2, tab);
                 }
             }
             context.exit(0);
         });
     }
 
+    private static void sequenceLevels(Parser parser, ApplicationContext context, StringBuilder level, Board tab2, Board tab) {
+        for(int i = 1; i < 8; i++){
+            try {
+                tab = Files.init_word(level + "lvl" + i + ".txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            fusionTab(tab, tab2);
+            if(!Engine.gameEngine(tab, parser, context))
+                i--;
+        }
+    }
+
+    private static void argsWithLevel(Parser parser, ApplicationContext context, StringBuilder level, Board tab2) {
+        Board tab = null;
+        try {
+            tab = Files.init_word(String.valueOf(level));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert tab != null;
+        fusionTab(tab, tab2);
+        Engine.gameEngine(tab, parser, context);
+    }
+
+    private static void noArgsDetected(Parser parser, ApplicationContext context) {
+        var level = "src/fr/umlv/babaisyou/externalFiles/LVL/default-lvl.txt";
+        Board tab = null;
+        try {
+            tab = Files.init_word(level);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert tab != null;
+        Engine.gameEngine(tab, parser, context);
+    }
+
     private static void fusionTab(Board tab, Board tab2){
         int x = tab.getX() - 1, y = tab.getY() - 1;
         for(int i = 0; i < tab2.getBoard().size(); i++){
-            if(i % 3 == 0)
+            switch (i % 3){
+                case 0 : tab.add(new Name(tab2.getBoard().get(i).getName(), x - 2, y));break;
+                case 1 : tab.add(new Operator(x - 1, y)); break;
+                case 2 : if(tab2.getBoard().get(i).isName())
+                    tab.add(new Name(tab2.getBoard().get(i).getName(), x, y));
+                else
+                    tab.add(new Properties(tab2.getBoard().get(i).getProp(), x, y));
+                    y--; break;
+                default : break;
+            }
+            /*if(i % 3 == 0)
                 tab.add(new Name(tab2.getBoard().get(i).getName(), x - 2, y));
             if(i % 3 == 1)
                 tab.add(new Operator(x - 1, y));
@@ -90,7 +113,7 @@ public class Args {
                 else
                     tab.add(new Properties(tab2.getBoard().get(i).getProp(), x, y));
                 y--;
-            }
+            }*/
         }
     }
 
@@ -106,7 +129,6 @@ public class Args {
                 verifExecProp(args, x, y, tab2, i);
             }
         }
-        System.out.println(level);
         return y;
     }
 
